@@ -1,0 +1,85 @@
+<h1>Players</h1>
+
+
+
+<button (click)="ShowModal()">Add player</button>
+<div class="col-sm-12">
+  <input type="text" name="InputText" placeholder="search by player name" [(ngModel)] = "name" />
+  &nbsp;
+  <button (click)="handleSearch()">Search</button>
+
+</div>
+<div class="overlay" *ngIf="show">
+  <div class="content">
+    <div class="Modal-header">
+      <button (click)="CloseModal()">
+        &times;
+      </button>
+    </div>
+    <div class="modal-content">
+        <form (ngSubmit)="submitForm(form)" [formGroup] ="form" class="modal-content">
+          <input type="number" hidden formControlName="_id" />
+        Name: <input type="text" name="name" formControlName="name"  required class="form-control" />
+        Country: <input type="text" name="country" formControlName="country"  required class="form-control" />
+        Span: <input type="text" name="span" formControlName="span"  required class="form-control" />
+        Matches: <input type="number" name="matches" formControlName="matches"  required class="form-control" />
+        Innings: <input type="number" name="innings" formControlName="innings" required class="form-control" />
+        Runs: <input type="number" name="runs" formControlName="runs"  required class="form-control" />
+        Highest Score: <input type="number" name="highestScore" formControlName="highestScore" required class="form-control" />
+        100's: <input type="number" name="centuries" formControlName="centuries"  required class="form-control" />
+        50's: <input type="number" name="halfCentury" formControlName="halfCentury"  required class="form-control" />
+        Overs: <input type="number" name="overs" formControlName="overs"  required class="form-control" />
+        Wickets: <input type="number" name="wickets" formControlName="wickets"  required class="form-control" />
+        <div class="modal-footer">
+          <button class="btn-footer">Submit</button>
+        </div>
+      </form>
+      <div class="error">{{Error}}</div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<h3>
+  {{Successmesage}}
+</h3>
+
+<div *ngIf="data">
+  <table>
+    <tr>
+      <th hidden>ID</th>
+      <th>Name</th>
+      <th>Country</th>
+      <th>Span</th>
+      <th>Matches</th>
+      <th>Innings</th>
+      <th>Total Runs</th>
+      <th>Highest Score</th>
+      <th>100's</th>
+      <th>50's</th>
+      <th>Overs</th>
+      <th>Wickets</th>
+    </tr>
+
+    <tr *ngFor="let player of data, index as i">
+      <td hidden>{{player._id}}</td>
+      <td>{{player.name}}</td>
+      <td>{{player.country}}</td>
+      <td>{{player.span}}</td>
+      <td>{{player.matches}}</td>
+      <td>{{player.innings}}</td>
+      <td>{{player.runs}}</td>
+      <td>{{player.highestScore}}</td>
+      <td>{{player.centuries}}</td>
+      <td>{{player.halfCentury}}</td>
+      <td>{{player.overs}}</td>
+      <td>{{player.wickets}}</td>
+      <td class="Action" >
+        <button class="btn-delete" (click)="delPlayer(player._id)">Delete</button> 
+        <button (click)="editPlayer(player, i)">Edit</button>
+      </td>
+    </tr>
+  </table>
+</div>
